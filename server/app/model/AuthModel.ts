@@ -1,9 +1,9 @@
 export default class AuthModel {
-    id: number
-    username: string
-    token: string
-    userAgent: string
-    ip: string
+    id?: number
+    username?: string
+    token?: string
+    userAgent?: string
+    ip?: string
 
     constructor(data: AuthModel) {
         this.id = data.id

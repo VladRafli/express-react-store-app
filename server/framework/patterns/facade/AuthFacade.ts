@@ -144,6 +144,29 @@ export default class AuthFacade {
         return newToken
     }
 
+    // public static async authenticate(
+    //     auth
+    // ): Promise<boolean | Error> {
+    //     let session = null
+
+    //     try {
+    //         session = await prisma.session.findFirst({
+    //             where: {
+    //                 userId
+    //                 token: auth.token,
+    //                 ip: auth.ip,
+    //                 userAgent: auth.userAgent,
+    //             },
+    //         })
+    //     } catch (err) {
+    //         const prismaError = prismaErrorCatcher(err)
+    //         if (prismaError !== undefined) return prismaError
+    //     }
+
+    //     if (session !== null) return true
+    //     return false
+    // }
+
     private static async _generateToken(): Promise<string> {
         return new Promise((resolve) => {
             let token = nanoid()

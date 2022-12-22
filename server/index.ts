@@ -1,7 +1,8 @@
 import cors from 'cors'
 import { config } from 'dotenv'
 import express from 'express'
-import morgan from 'morgan'
+import httpLogger from './framework/logging/morgan'
+import apiRoute from './routes/api'
 
 config()
 
@@ -19,9 +20,9 @@ app.use(
         origin: 'http://localhost:3000',
     })
 )
-app.use(morgan('combined'))
+app.use(httpLogger)
 
-app.use()
+app.use(apiRoute)
 
 app.listen(PORT, () =>
     console.log(`Server is started on http://localhost:${PORT}`)
