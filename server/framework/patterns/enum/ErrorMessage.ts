@@ -2,6 +2,8 @@ enum ErrorMessage {
     ValidationError = 'Not satisfying validation requirement.',
     BadCredentials = 'Wrong credentials.',
     BadFormInput = 'Bad form input.',
+    ForbiddenAccess = 'Access forbidden.',
+    AuthenticationFail = 'Failed to authenticate user.',
     PrismaClientKnownRequestError = 'Query engine return a known error related to your request.',
     PrismaClientUnknownRequestError = 'Query engine return a unknown error related to your request.',
     PrismaClientRustPanicError = 'Query engine crashes and exits with a non-zero exit code. Server need to be restarted.',

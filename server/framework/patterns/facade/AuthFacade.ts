@@ -2,7 +2,6 @@ import dayjs from 'dayjs'
 import { nanoid } from 'nanoid'
 import prisma from '../../database/prisma'
 import AuthModel from '../../../app/model/AuthModel'
-import LoginObject from '../../../framework/patterns/interface/LoginObjectInterface'
 import prismaErrorCatcher from '../../database/prismaErrorCatcher'
 
 export default class AuthFacade {
@@ -28,7 +27,7 @@ export default class AuthFacade {
      * ```
      */
     public static async login(
-        data: LoginObject,
+        data: { id: number; ip: string; userAgent: string },
         token?: string | null
     ): Promise<string | Error> {
         let newToken = null
@@ -69,7 +68,7 @@ export default class AuthFacade {
                         data: {
                             userId: data.id,
                             token: newToken,
-                            ttl: dayjs().add(7, 'day').toDate(),
+                            expireDate: dayjs().add(7, 'day').toDate(),
                             ip: data.ip,
                             userAgent: data.userAgent,
                         },
@@ -89,7 +88,7 @@ export default class AuthFacade {
                 return newToken
             }
 
-            if (dayjs().diff(session?.ttl, 'day') <= 7) {
+            if (dayjs(session?.expireDate).diff(dayjs(), 'day') <= 7) {
                 newToken = await this._generateToken()
 
                 try {
@@ -124,7 +123,7 @@ export default class AuthFacade {
                 data: {
                     userId: data.id,
                     token: newToken,
-                    ttl: dayjs().add(7, 'day').toDate(),
+                    expireDate: dayjs().add(7, 'day').toDate(),
                     ip: data.ip,
                     userAgent: data.userAgent,
                 },
@@ -144,28 +143,53 @@ export default class AuthFacade {
         return newToken
     }
 
-    // public static async authenticate(
-    //     auth
-    // ): Promise<boolean | Error> {
-    //     let session = null
+    /**
+     * Authenticate user session.
+     * 
+     * ```typescript
+     * AuthFacade.authenticate('<token>', { ip: req.ip, userAgent: req.header('User-Agent') })
+     * ```
+     */
+    public static async authenticate(
+        token: string,
+        userMetadata: { ip?: string; userAgent?: string }
+    ): Promise<boolean | Error> {
+        let session = null
 
-    //     try {
-    //         session = await prisma.session.findFirst({
-    //             where: {
-    //                 userId
-    //                 token: auth.token,
-    //                 ip: auth.ip,
-    //                 userAgent: auth.userAgent,
-    //             },
-    //         })
-    //     } catch (err) {
-    //         const prismaError = prismaErrorCatcher(err)
-    //         if (prismaError !== undefined) return prismaError
-    //     }
+        if (userMetadata.ip === undefined) return false
+        if (userMetadata.userAgent === undefined) return false
 
-    //     if (session !== null) return true
-    //     return false
-    // }
+        try {
+            session = await prisma.session.findFirst({
+                where: {
+                    token: token,
+                    ip: userMetadata.ip,
+                    userAgent: userMetadata.userAgent,
+                    expireDate: {
+                        lte: dayjs().toDate(),
+                    },
+                },
+                include: {
+                    user: true
+                }
+            })
+        } catch (err) {
+            const prismaError = prismaErrorCatcher(err)
+            if (prismaError !== undefined) return prismaError
+        }
+
+        if (session !== null) {
+            this._auth = {
+                id: session.userId,
+                ip: session.ip,
+                token: session.token,
+                userAgent: session.userAgent,
+                username: session.user.username
+            }
+            return true
+        }
+        return false
+    }
 
     private static async _generateToken(): Promise<string> {
         return new Promise((resolve) => {

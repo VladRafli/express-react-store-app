@@ -16,6 +16,9 @@
     "prisma:validate": "npx prisma validate",
     "prisma:format": "npx prisma format"
   },
+  "prisma": {
+    "seed": "ts-node --transpile-only prisma/seed.ts"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -44,12 +47,15 @@
     "@types/cors": "^2.8.13",
     "@typescript-eslint/eslint-plugin": "^5.47.0",
     "@typescript-eslint/parser": "^5.47.0",
+    "chai": "^4.3.7",
     "eslint": "^8.29.0",
-    "eslint-config-standard-with-typescript": "^23.0.0",
-    "eslint-plugin-import": "^2.26.0",
+    "eslint-config-standard-with-typescript": "^21.0.1",
+    "eslint-plugin-import": "^2.24.1",
     "eslint-plugin-n": "^15.6.0",
     "eslint-plugin-promise": "^6.1.1",
+    "mocha": "^10.2.0",
     "nodemon": "^2.0.20",
+    "supertest": "^6.3.3",
     "typescript": "^4.9.4"
   }
 }

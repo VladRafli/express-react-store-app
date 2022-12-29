@@ -94,7 +94,7 @@ export default async function loginController(req: Request, res: Response) {
 
     const token = await AuthFacade.login({
         id: user.id,
-        ip: req.header('Host') ?? '',
+        ip: req.ip,
         userAgent: req.header('User-Agent') ?? '',
     })
 

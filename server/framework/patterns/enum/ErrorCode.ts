@@ -12,6 +12,14 @@ enum ErrorCode {
      */
     BadFormInput = 'ERR_BAD_FORM_INPUT',
     /**
+     * Error for User forbidden to access a resource
+     */
+    ForbiddenAccess = 'ERR_FORBIDDEN',
+    /**
+     * Error for failed to authenticate user
+     */
+    AuthenticationFail = 'ERR_AUTH_FAIL',
+    /**
      * Prisma Client throws a PrismaClientKnownRequestError exception if the query engine returns a known error related to the request - for example, a unique constraint violation.
      * 
      * https://www.prisma.io/docs/reference/api-reference/error-reference#prismaclientknownrequesterror

@@ -32,14 +32,14 @@ model Product {
 }
 
 model Session {
-  id        Int       @id @default(autoincrement()) @db.Int
-  userId    Int
-  token     String    @unique @db.VarChar(50)
-  ttl       DateTime
-  userAgent String    @db.VarChar(100)
-  ip        String    @db.Char(20)
-  user      User      @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade)
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  deletedAt DateTime?
+  id         Int       @id @default(autoincrement()) @db.Int
+  userId     Int
+  token      String    @unique @db.VarChar(50)
+  expireDate DateTime
+  userAgent  String    @db.VarChar(100)
+  ip         String    @db.Char(20)
+  user       User      @relation(fields: [userId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  deletedAt  DateTime?
 }
