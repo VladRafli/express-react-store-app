@@ -6,4 +6,7 @@ EXPOSE 5000
 COPY . .
 RUN npm install pm2 -g
 RUN pm2 install typescript
-CMD ["pm2-runtime", "index.ts"]
+RUN npm install
+RUN npm run prisma:migrate
+RUN npm run prisma:seed
+RUN pm2-runtime index.ts

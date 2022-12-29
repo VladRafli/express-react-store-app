@@ -3,6 +3,11 @@ services:
   web:
     build: .
     ports:
-      - "5000:5000"
+      - 5000:5000
   mariadb:
     image: "mariadb"
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: root
+    ports:
+      - 3306:3306
