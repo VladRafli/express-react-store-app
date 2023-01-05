@@ -1,11 +1,11 @@
 import { Prisma } from '@prisma/client'
-import EnvironmentPhase from '../patterns/enum/EnvironmentPhase'
-import ErrorCode from '../patterns/enum/ErrorCode'
-import ErrorMessage from '../patterns/enum/ErrorMessage'
-import DevResponseFacade from '../patterns/facade/DevResponseFacade'
-import ResponseFacade from '../patterns/facade/ResponseFacade'
-import DevErrorResponseJsonInterface from '../patterns/interface/Response/Dev/DevErrorResponseJsonInterface'
-import ErrorResponseJsonInterface from '../patterns/interface/Response/Production/ErrorResponseJsonInterface'
+import EnvironmentPhase from '../../patterns/enum/EnvironmentPhase'
+import ErrorCode from '../../patterns/enum/ErrorCode'
+import ErrorMessage from '../../patterns/enum/ErrorMessage'
+import DevResponseFacade from '../../patterns/facade/DevResponseFacade'
+import ResponseFacade from '../../patterns/facade/ResponseFacade'
+import DevErrorResponseJsonInterface from '../../patterns/interface/Response/Dev/DevErrorResponseJsonInterface'
+import ErrorResponseJsonInterface from '../../patterns/interface/Response/Production/ErrorResponseJsonInterface'
 
 export default function prismaErrorHandler(
     err: unknown

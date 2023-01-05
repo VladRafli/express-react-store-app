@@ -1,6 +1,7 @@
 import cors from 'cors'
 import { config } from 'dotenv'
 import express from 'express'
+import DbConnectionChecker from './framework/database/DbConnectionChecker'
 import processHandler from './framework/handler/processHandler'
 import httpLogger from './framework/logging/morgan'
 import logger from './framework/logging/winston'
@@ -24,16 +25,31 @@ app.use(
 )
 app.use(httpLogger)
 
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
     res.json({
-        status: 'running',
-        message: 'Server is up and running!'
+        server: {
+            status: 'running',
+            message: 'Server is up and running!',
+            data: {
+                serverTime: new Date().toDateString(),
+                resourceUsage: process.resourceUsage(),
+                uptime: Math.floor(process.uptime()),
+                nodeVersion: process.version,
+            }
+        },
+        database: [
+            {
+                status: await DbConnectionChecker.RDBMSPing() ? 'running' : 'not_active',
+                engine: 'mysql',
+            }
+        ]
     })
 })
 
 app.use(apiRoute)
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
     logger.info(`Server is started on http://localhost:${PORT}`)
-    processHandler()
 })
+
+processHandler(server)
