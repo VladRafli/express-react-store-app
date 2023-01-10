@@ -17,7 +17,7 @@ const logger = winston.createLogger({
             maxsize: 5242880,
         }),
         new winston.transports.File({
-            filename: path.join(__dirname, '../log/warning.log'),
+            filename: path.join(appRoot.path, '/log/warning.log'),
             level: 'warn',
             format: winston.format.combine(
                 winston.format.splat(),
@@ -28,7 +28,7 @@ const logger = winston.createLogger({
             maxsize: 5242880,
         }),
         new winston.transports.File({
-            filename: path.join(__dirname, '../log/server.log'),
+            filename: path.join(appRoot.path, '/log/server.log'),
             level: 'info',
             format: winston.format.combine(
                 winston.format.splat(),

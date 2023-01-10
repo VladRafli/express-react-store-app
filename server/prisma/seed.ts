@@ -1,4 +1,4 @@
-import prisma from '../framework/database/prisma'
+import prisma from '../framework/database/prisma/prisma'
 import User from './seeder/user'
 import Product from './seeder/Product'
 import logger from '../framework/logging/winston'

@@ -1,4 +1,4 @@
-import prisma from '../../framework/database/prisma'
+import prisma from '../../framework/database/prisma/prisma'
 import bcrypt from 'bcrypt'
 
 export default async function User() {

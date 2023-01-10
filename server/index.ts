@@ -1,4 +1,7 @@
 import cors from 'cors'
+import dayjs from 'dayjs'
+import duration from 'dayjs/plugin/duration'
+import relativeTime from 'dayjs/plugin/relativeTime'
 import { config } from 'dotenv'
 import express from 'express'
 import helmet from 'helmet'
@@ -7,6 +10,9 @@ import processHandler from './framework/handler/processHandler'
 import httpLogger from './framework/logging/morgan'
 import logger from './framework/logging/winston'
 import apiRoute from './routes/api'
+
+dayjs.extend(duration)
+dayjs.extend(relativeTime)
 
 config()
 
@@ -33,9 +39,9 @@ app.get('/', async (req, res) => {
             status: 'running',
             message: 'Server is up and running!',
             data: {
-                serverTime: new Date().toDateString(),
+                serverTime: new Date().toUTCString(),
                 resourceUsage: process.resourceUsage(),
-                uptime: Math.floor(process.uptime()),
+                uptime: dayjs.duration(Math.floor(process.uptime()), 'seconds').humanize(),
                 nodeVersion: process.version,
             }
         },
@@ -51,6 +57,7 @@ app.get('/', async (req, res) => {
 app.use(apiRoute)
 
 const server = app.listen(PORT, () => {
+    console.log(`Server is started on http://localhost:${PORT}`)
     logger.info(`Server is started on http://localhost:${PORT}`)
 })
 

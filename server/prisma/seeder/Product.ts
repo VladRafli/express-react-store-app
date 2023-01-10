@@ -1,5 +1,5 @@
 import { Prisma, Product } from '@prisma/client'
-import prisma from '../../framework/database/prisma'
+import prisma from '../../framework/database/prisma/prisma'
 import { faker } from '@faker-js/faker'
 
 export default async function Product() {

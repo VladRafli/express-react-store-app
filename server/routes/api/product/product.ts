@@ -4,7 +4,7 @@ import getProductByIdController from '../../../app/controller/product/getProduct
 
 const router = Router()
 
-router.get('/product', getAllProductController)
-router.get('/product/:id', getProductByIdController)
+router.get('/', getAllProductController)
+router.get('/:id', getProductByIdController)
 
 export default router

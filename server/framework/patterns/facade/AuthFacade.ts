@@ -1,5 +1,5 @@
 import dayjs from 'dayjs'
-import { nanoid } from 'nanoid'
+import { v4 as uuidv4 } from 'uuid'
 import prisma from '../../database/prisma/prisma'
 import AuthModel from '../../../app/model/AuthModel'
 import prismaErrorCatcher from '../../database/prisma/prismaErrorCatcher'
@@ -193,10 +193,10 @@ export default class AuthFacade {
 
     private static async _generateToken(): Promise<string> {
         return new Promise((resolve) => {
-            let token = nanoid()
+            let token = uuidv4()
 
             while (this._isTokenCollide(token)) {
-                token = nanoid()
+                token = uuidv4()
                 this._isTokenCollide(token)
             }
 

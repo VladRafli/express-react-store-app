@@ -1,10 +1,11 @@
 import appRoot from 'app-root-path'
+import dayjs from 'dayjs'
 import path from 'path'
 import { createStream } from 'rotating-file-stream'
 
-const rfsStream = createStream(`${appRoot.path}/log/access.log`, {
+const rfsStream = createStream(`access-${dayjs().format('DD-MM-YYYY')}.log`, {
     interval: '1d', // rotate daily
-    path: path.join(__dirname, 'log'),
+    path: path.join(appRoot.path, 'log'),
 })
 
 export default rfsStream
