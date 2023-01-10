@@ -3,7 +3,6 @@ services:
   server:
     container_name: FakeStoreServer
     build: ./server
-    dockerfile: Dockerfile
     ports:
       - '5000:5000'
   db:
