@@ -1,6 +1,7 @@
 import cors from 'cors'
 import { config } from 'dotenv'
 import express from 'express'
+import helmet from 'helmet'
 import DbConnectionChecker from './framework/database/DbConnectionChecker'
 import processHandler from './framework/handler/processHandler'
 import httpLogger from './framework/logging/morgan'
@@ -24,6 +25,7 @@ app.use(
     })
 )
 app.use(httpLogger)
+app.use(helmet())
 
 app.get('/', async (req, res) => {
     res.json({

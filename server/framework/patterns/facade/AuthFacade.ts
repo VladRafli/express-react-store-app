@@ -1,8 +1,8 @@
 import dayjs from 'dayjs'
 import { nanoid } from 'nanoid'
-import prisma from '../../database/prisma'
+import prisma from '../../database/prisma/prisma'
 import AuthModel from '../../../app/model/AuthModel'
-import prismaErrorCatcher from '../../database/prismaErrorCatcher'
+import prismaErrorCatcher from '../../database/prisma/prismaErrorCatcher'
 
 export default class AuthFacade {
     private static _auth: AuthModel
