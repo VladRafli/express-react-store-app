@@ -1,13 +1,26 @@
-version: "3.9"
+version: '3.9'
 services:
-  web:
-    build: .
+  server:
+    container_name: FakeStoreServer
+    build: ./server
+    dockerfile: Dockerfile
     ports:
-      - 5000:5000
-  mariadb:
-    image: "mariadb"
-    restart: always
+      - '5000:5000'
+  db:
+    container_name: FakeStoreDatabase
+    image: mariadb
+    ports:
+      - "3306:3306"
     environment:
-      MARIADB_ROOT_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+  loadbalancer:
+    container_name: FakeStoreLoadBalancer
+    image: nginx
     ports:
-      - 3306:3306
+      - '80:80'
+    depends_on:
+      - server
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
