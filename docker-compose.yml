@@ -9,6 +9,8 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_USER: root
       MYSQL_PASSWORD: root
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
   server:
     container_name: FakeStoreServer
     build: ./server
