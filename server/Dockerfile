@@ -6,6 +6,7 @@ COPY . .
 RUN npm install pm2 -g
 RUN pm2 install typescript
 RUN npm install
+RUN npx prisma migrate dev --name init
 RUN npm run prisma:migrate
 RUN npm run prisma:seed
 RUN pm2-runtime index.ts
