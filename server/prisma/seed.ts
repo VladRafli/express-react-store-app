@@ -1,5 +1,5 @@
 import prisma from '../framework/database/prisma/prisma'
-import User from './seeder/user'
+import User from './seeder/User'
 import Product from './seeder/Product'
 import logger from '../framework/logging/winston'
 
