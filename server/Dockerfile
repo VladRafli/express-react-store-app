@@ -1,6 +1,6 @@
 FROM node:18
 ENV NODE_ENV=testing
-ENV DATABASE_URL="mysql://root:root@http://host.docker.internal:3306/FakeStore"
+ENV DATABASE_URL="mysql://root:root@host.docker.internal:3306/FakeStore"
 EXPOSE 5000
 COPY . .
 RUN npm install pm2 -g
