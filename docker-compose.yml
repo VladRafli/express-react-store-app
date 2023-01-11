@@ -9,9 +9,6 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_USER: root
       MYSQL_PASSWORD: root
-    networks:
-      vpcbr:
-        ipv4_address: 172.10.0.10
   server:
     container_name: FakeStoreServer
     build: ./server
